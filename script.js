@@ -25,7 +25,8 @@ const innerAnimationHidden = {
     yPercent: -20,
 };
 
-/* VERTICAL SLIDER */
+/*VERTICAL SLIDER */
+
 const swiper = new Swiper(slider, {
     direction: 'vertical',
     speed:1500,
@@ -83,14 +84,14 @@ car.addEventListener('load', (event) =>{
         paint = matterials[10];
 
 
-    paint.pbMetallicRoughness.setBaseColorFactor("##CBD5E1")
+    paint.pbrMetallicRoughness.setBaseColorFactor("##CBD5E1")
 
 
     const exposure1 = '1',
         orbit1 = '0deg 50deg 50%',
-        exposure2 = '0.4'
+        exposure2 = '0.4',
         orbit2 = '-60deg 60deg 50%',
-        exposure3 = '1'
+        exposure3 = '1',
         orbit3 = '44deg 83deg 50%';
     let target1, target2, target3;
 
@@ -206,8 +207,7 @@ gsap.to(car, carPosition(exposure1, orbit1, target1));
         });
     });
 
-
-    colorButtons.forEach((button) => {
+    colorButtons.forEach((button) =>{
         button.addEventListener('click', (e) =>{
 
             const color = e.target.dataset.color;
