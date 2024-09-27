@@ -23,6 +23,6 @@ model-viewer{
 }
 
 [data-color].active::before,
-[data-color]:focus::before{
+[data-color]:focus::before {
     border-color: white;
 }
