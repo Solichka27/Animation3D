@@ -59,7 +59,7 @@ const swiper = new Swiper(slider, {
                     xPercent: 0
                 });
 
-                gsap.set(e, {
+                gsap.to(e, {
                     duration: duration,
                     ease: "none",
                     xPercent: offset,
@@ -81,7 +81,7 @@ car.addEventListener('load', (event) =>{
 
 
     const materials = car.model.materials,
-        paint = matterials[10];
+        paint = materials[10];
 
 
     paint.pbrMetallicRoughness.setBaseColorFactor("##CBD5E1")
@@ -122,7 +122,6 @@ car.addEventListener('load', (event) =>{
             }
         );
     };
-
 
 gsap.to(car, carPosition(exposure1, orbit1, target1));
 
@@ -212,7 +211,7 @@ gsap.to(car, carPosition(exposure1, orbit1, target1));
 
             const color = e.target.dataset.color;
             if (color != undefined){
-                paint.pbMetallicRoughness.setBaseColorFactor(color);
+                paint.pbrMetallicRoughness.setBaseColorFactor(color);
             }
 
             colorButtons.forEach((otherButton) =>{
