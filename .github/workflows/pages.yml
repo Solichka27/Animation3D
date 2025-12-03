@@ -11,26 +11,37 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Ensure .nojekyll exists
+        run: |
+          # create an empty .nojekyll to disable Jekyll processing
+          if [ ! -f .nojekyll ]; then
+            touch .nojekyll
+          fi
+          echo ".nojekyll ready"
+
       - name: Show repo root (debug)
         run: |
           echo "PWD: $(pwd)"
           ls -la
+          echo "Top-level files (preview):"
           find . -maxdepth 2 -type f -print | sed -n '1,200p'
 
-      - name: Pack files
+      - name: Pack files to /tmp (safe)
         run: |
-          tar -cvf site-archive.tar --exclude='.git' --exclude='node_modules' .
+          # create tar outside the directory being archived to avoid tar-in-tar issues
+          tar -C . -cvf /tmp/site-archive.tar --exclude='.git' --exclude='node_modules' --exclude='/tmp' .
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: site-archive.tar
+          path: /tmp/site-archive.tar
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
