@@ -14,11 +14,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Show repo root (debug)
+        run: |
+          echo "PWD: $(pwd)"
+          ls -la
+          find . -maxdepth 2 -type f -print | sed -n '1,200p'
+
+      - name: Pack files
+        run: |
+          tar -cvf site-archive.tar --exclude='.git' --exclude='node_modules' .
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./
+          path: site-archive.tar
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v1
